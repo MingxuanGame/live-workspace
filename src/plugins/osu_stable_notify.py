@@ -9,6 +9,7 @@ import aiosu
 from nonebot import get_driver, get_plugin_config, logger, on_command
 from nonebot.adapters.bilibili_live import DanmakuEvent, Message
 from nonebot.params import CommandArg, Depends
+from nonebot.plugin import PluginMetadata
 from pydantic import BaseModel
 import pydle
 
@@ -22,6 +23,25 @@ class Config(BaseModel):
 
 
 config = get_plugin_config(Config)
+
+__plugin_meta__ = PluginMetadata(
+    name="notify provider - osu! stable",
+    description="",
+    usage="",
+    config=Config,
+    homepage="https://github.com/MingxuanGame/live-workspace/tree/master/src/plugins/osu_stable_notify.py",
+    type="application",
+    supported_adapters={"~bilibili_live"},
+    extra={
+        "danmaku_commands": [
+            {
+                "name": "b",
+                "description": "点歌",
+                "usage": "<beatmap_id> [mods]",
+            }
+        ]
+    },
+)
 
 
 class IrcBot(pydle.features.RFC1459Support):
