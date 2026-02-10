@@ -4,6 +4,7 @@ import asyncio
 from pathlib import Path
 from typing import Annotated
 
+from .commands import commands
 from .config import config
 from .models import WSMessage
 
@@ -11,6 +12,7 @@ from aiohttp import ClientSession
 from fastapi import FastAPI, Response, WebSocket, WebSocketDisconnect
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
+from nonebot import get_driver
 from nonebot.internal.params import Depends
 
 app = FastAPI()
@@ -21,6 +23,8 @@ PROD_FRONTEND_DIR = Path(__file__).parent / "frontend" / "dist"
 
 PROXY_TTL = 60 * 60  # 1小时
 PROXY_CACHE = {}  # url -> (content, content_type, timestamp)
+
+driver = get_driver()
 
 
 def get_frontend_dir() -> Path | None:
@@ -51,6 +55,12 @@ async def assets_proxy(url: str):
             asyncio.get_event_loop().time(),
         )
         return Response(content, media_type=response.headers.get("Content-Type"))
+
+
+@app.get("/commands")
+async def get_commands():
+    """返回所有可用的命令"""
+    return {"commands": commands, "prefix": driver.config.command_start}
 
 
 @app.websocket("/ws/{room_id}")

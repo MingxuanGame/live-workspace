@@ -6,6 +6,7 @@ import DanmakuList from '@/components/DanmakuList.vue'
 import TickerBar from '@/components/TickerBar.vue'
 import GiftBar from '@/components/GiftBar.vue'
 import EntryNotice from '@/components/EntryNotice.vue'
+import CommandBar from '@/components/CommandBar.vue'
 
 const route = useRoute()
 
@@ -66,9 +67,14 @@ onUnmounted(() => {
         />
       </div>
 
-      <!-- 底部通知区域 (20%) - 进场和点赞 -->
+      <!-- 进场点赞区域 (10%) -->
       <div class="entry-area">
-        <EntryNotice :messages="messages" :max-notices="8" />
+        <EntryNotice :messages="messages" :max-notices="4" />
+      </div>
+
+      <!-- 命令区域 (10%) -->
+      <div class="command-area">
+        <CommandBar />
       </div>
 
       <!-- 连接状态（调试用，可通过CSS隐藏） -->
@@ -148,12 +154,19 @@ onUnmounted(() => {
   overflow: hidden;
 }
 
-/* 底部通知区域：20% 高度 */
+/* 进场点赞区域：10% 高度 */
 .entry-area {
-  flex: 0 0 20%;
-  border-top: 2px solid rgba(255, 255, 255, 0.3);
+  flex: 0 0 10%;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
   background: transparent;
   overflow: hidden;
+}
+
+/* 命令区域：自适应高度 */
+.command-area {
+  flex-shrink: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
 }
 
 .connection-status {
