@@ -6,8 +6,11 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "aiohttp>=3.12.13",
+    "aiosu>=2.3.5",
     "nonebot-adapter-bilibili-live>=0.2.4",
+    "nonebot-plugin-danmaku",
     "nonebot2[aiohttp,fastapi]>=2.4.2",
+    "pydle>=1.1.0",
     "simpleobsws>=1.4.3",
 ]
 
@@ -80,6 +83,9 @@ mark-parentheses = false
 
 [tool.ruff.lint.pyupgrade]
 keep-runtime-typing = true
+
+[tool.ruff.lint.extend-per-file-ignores]
+"src/plugins/**/*.py" = ["INP001"]
 
 [tool.pyright]
 pythonVersion = "3.12"
