@@ -94,3 +94,17 @@ async def handle_beatmap_request(
         f"Sent beatmap request notification for bid {bid_int} with mods {mods}."
         f" (username: {username})"
     )
+
+
+@notifier.handle("message")
+async def handle_message(
+    data: dict[str, Any],
+) -> None:
+    event = data["event"]
+    message = event.get_message()
+    sender_name = event.sender.name
+    await client.message(
+        config.notifier_osu_stable_target,
+        f"{sender_name}: {message}",
+    )
+    logger.info(f"Sent message notification: {sender_name}: {message}")
