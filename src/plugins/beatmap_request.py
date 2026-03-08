@@ -30,7 +30,7 @@ __plugin_meta__ = PluginMetadata(
 )
 
 
-matcher = on_command("b")
+matcher = on_command("b", priority=10, block=True)
 
 
 class ExitFor(Exception):  # noqa: N818
