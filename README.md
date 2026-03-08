@@ -70,7 +70,7 @@ TOSU_RECONNECT_MAX_ATTEMPTS=5
 
 一般情况下 tosu 会默认监听在 `localhost:24050`，所以通常不需要修改这里的设置。
 
-## OBS WebSocket
+### OBS WebSocket
 
 如果需要使用 OBS WebSocket 功能，需要在配置文件中添加以下配置：
 
@@ -84,7 +84,7 @@ OBS_IDENTIFY_TIMEOUT=10
 
 在 OBS Studio 中的 工具 -> WebSocket 服务器设置 中启用 WebSocket 服务器，并设置密码。
 
-## 通知器
+### 通知器
 
 通知器会将弹幕等信息通过特定接口发送到指定游戏。需要在配置文件中添加以下配置：
 
@@ -93,7 +93,7 @@ OBS_IDENTIFY_TIMEOUT=10
 NOTIFIER=your_notifier
 ```
 
-### osu!(stable) 通知器
+#### osu!(stable) 通知器
 
 osu!(stable) 通知器使用 IRC 通过将消息发给自己的形式来通知 osu! 客户端。需要在配置文件中添加以下配置：
 
@@ -108,7 +108,7 @@ NOTIFIER_OSU_STABLE_USERNAME=your_irc_username
 NOTIFIER_OSU_STABLE_PASSWORD=your_irc_password
 ```
 
-### osu!(lazer) 通知器
+#### osu!(lazer) 通知器
 
 osu!(lazer) 通知器使用 [ExternalOperation ruleset](https://github.com/MingxuanGame/LazerExternalOperation) 通过在游戏内发送通知的形式来通知 osu! 客户端。需要在配置文件中添加以下配置：
 
