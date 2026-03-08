@@ -1,9 +1,10 @@
 from __future__ import annotations
 
 from enum import IntEnum
-from typing import Any, Optional, override
+from typing import Any, NoReturn, Optional, override
 
 from nonebot.adapters import Event, Message
+from nonebot.exception import NoLogException
 from pydantic import BaseModel, Field
 
 
@@ -555,6 +556,10 @@ class TosuEvent(TosuData, Event):
     @override
     def get_session_id(self) -> str:
         return f"{self.settings.client}.{self.profile.id or 0}"
+
+    @override
+    def get_log_string(self) -> NoReturn:
+        raise NoLogException("tosu")
 
     @override
     def is_tome(self) -> bool:
