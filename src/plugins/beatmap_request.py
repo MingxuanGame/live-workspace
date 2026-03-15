@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Annotated
 
-from src.lib.notification import BliveNotifier
+from src.lib.notification import notifier_manager
 from src.lib.osu_api import OsuV1Client
 
 import aiosu
@@ -10,6 +10,11 @@ from nonebot import logger, on_command
 from nonebot.adapters.bilibili_live import DanmakuEvent, Message
 from nonebot.params import CommandArg
 from nonebot.plugin import PluginMetadata
+
+
+def is_enabled() -> bool:
+    return notifier_manager.current_notifier.startswith("osu_")
+
 
 __plugin_meta__ = PluginMetadata(
     name="点歌请求",
@@ -24,13 +29,19 @@ __plugin_meta__ = PluginMetadata(
                 "name": "b",
                 "description": "点歌",
                 "usage": "<beatmap_id> [mods]",
+                "enabled": is_enabled,
             }
         ]
     },
 )
 
 
-matcher = on_command("b", priority=10, block=True)
+matcher = on_command(
+    "b",
+    priority=10,
+    block=True,
+    rule=is_enabled,
+)
 
 
 class ExitFor(Exception):  # noqa: N818
@@ -42,7 +53,6 @@ async def handle_beatmap_request(
     event: DanmakuEvent,
     args: Annotated[Message, CommandArg()],
     osu_client: OsuV1Client,
-    notifier: BliveNotifier,
 ):
     logger.info(f"Received beatmap request: {args}")
     texts = args.extract_plain_text().strip().split()
@@ -85,4 +95,4 @@ async def handle_beatmap_request(
         "username": event.sender.name,
         "user_id": event.get_user_id(),
     }
-    await notifier.emit("beatmap_request", notifier_data)
+    await notifier_manager.emit("beatmap_request", notifier_data)

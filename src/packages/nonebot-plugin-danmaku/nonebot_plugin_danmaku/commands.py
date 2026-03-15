@@ -1,14 +1,15 @@
 from __future__ import annotations
 
-from typing import TypedDict, cast
+from typing import Callable, TypedDict, cast
 
-from nonebot import get_driver, get_loaded_plugins
+from nonebot import get_driver, get_loaded_plugins, logger
 
 
 class Command(TypedDict):
     name: str
     description: str
     usage: str
+    enabled: bool | Callable[[], bool]
 
 
 METADATA_KEY = "danmaku_commands"
@@ -25,7 +26,7 @@ async def startup():
         if metadata and metadata.extra and METADATA_KEY in metadata.extra:
             for cmd in metadata.extra[METADATA_KEY]:
                 if cmd["name"] in commands:
-                    driver.logger.warning(
+                    logger.warning(
                         f"Command '{cmd['name']}' from plugin '{plugin.name}' "
                         f"conflicts with an existing command. Skipping."
                     )

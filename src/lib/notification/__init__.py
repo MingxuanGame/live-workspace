@@ -5,6 +5,7 @@ from .manager import (
     Notifier,
     NotifierHandler,
     NotifierManager,
+    manager as notifier_manager,
     register_notifier,
 )
 
@@ -13,5 +14,6 @@ __all__ = [
     "Notifier",
     "NotifierHandler",
     "NotifierManager",
+    "notifier_manager",
     "register_notifier",
 ]

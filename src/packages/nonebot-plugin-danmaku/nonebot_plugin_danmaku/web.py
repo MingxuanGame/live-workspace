@@ -60,7 +60,14 @@ async def assets_proxy(url: str):
 @app.get("/commands")
 async def get_commands():
     """返回所有可用的命令"""
-    return {"commands": commands, "prefix": driver.config.command_start}
+    return {
+        "commands": {
+            name: cmd
+            for name, cmd in commands.items()
+            if not callable(cmd["enabled"]) or cmd["enabled"]()
+        },
+        "prefix": driver.config.command_start,
+    }
 
 
 @app.websocket("/ws/{room_id}")

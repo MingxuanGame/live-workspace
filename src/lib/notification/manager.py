@@ -39,12 +39,13 @@ class Notifier:
 class NotifierManager:
     def __init__(self) -> None:
         self.notifiers: dict[str, Notifier] = {}
+        self.current_notifier = config.notifier
 
     async def emit(
         self, event: str, data: dict[str, Any], *, notifier: str = ""
     ) -> None:
         if not notifier:
-            notifier = config.notifier
+            notifier = self.current_notifier
         notifier_instance = self.notifiers.get(notifier)
         if notifier_instance is None:
             return
