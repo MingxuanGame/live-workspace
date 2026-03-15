@@ -29,6 +29,7 @@ _Created by [Jiang-Red](https://github.com/Jiang-Red)_
 - [uv](https://docs.astral.sh/uv) 包管理器
 - Python 3.12 或更高版本
 - [Node.js](https://nodejs.org/) 和 [pnpm](https://www.npmjs.com/) 构建弹幕姬前端页面
+- 可选：[Git LFS](https://git-lfs.github.com/) 用于管理[大型静态资源文件](#静态文件)
 
 ### 克隆仓库并安装依赖
 
@@ -95,7 +96,7 @@ NOTIFIER=your_notifier
 
 #### osu!(stable) 通知器
 
-osu!(stable) 通知器使用 IRC 通过将消息发给自己的形式来通知 osu! 客户端。需要在配置文件中添加以下配置：
+osu!(stable) 通知器通过 IRC 将消息发给自己的形式来通知 osu! 客户端。需要在配置文件中添加以下配置：
 
 ```env
 NOTIFIER=osu_stable
@@ -110,7 +111,7 @@ NOTIFIER_OSU_STABLE_PASSWORD=your_irc_password
 
 #### osu!(lazer) 通知器
 
-osu!(lazer) 通知器使用 [ExternalOperation ruleset](https://github.com/MingxuanGame/LazerExternalOperation) 通过在游戏内发送通知的形式来通知 osu! 客户端。需要在配置文件中添加以下配置：
+osu!(lazer) 通知器通过使用 [ExternalOperation ruleset](https://github.com/MingxuanGame/LazerExternalOperation) 向游戏内发送通知来通知 osu! 客户端。需要在配置文件中添加以下配置：
 
 ```env
 NOTIFIER=osu_lazer
@@ -139,7 +140,7 @@ uv run nb run
 
 ## 弹幕姬
 
-弹幕姬会在 `http://localhost:8080/danmaku/?room=<roomid>` 提供一个 Web 页面来显示直播间的弹幕。你可以在 OBS 中使用浏览器源来加载这个页面，从而在直播中显示弹幕。
+弹幕姬会在 `http://localhost:8080/danmaku/?room=<roomid>` 提供一个 Web 页面来显示直播间的弹幕。你可以在 OBS 中使用浏览器源来加载这个页面。
 
 将 `<roomid>` 替换为你想要显示弹幕的直播间 ID。例如：
 
@@ -292,6 +293,14 @@ yt-live-chat-author-badge-renderer {
   display: none !important;
 }
 ```
+
+## 静态文件
+
+静态文件包含以下目录：
+
+- `images/` - 存放直播封面等图片资源
+
+其中 PSD 文件使用 Git LFS 管理。在克隆仓库时请确保安装了 Git LFS，并使用 `git lfs pull` 命令下载 PSD 文件。
 
 ## 许可
 
