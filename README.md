@@ -302,6 +302,10 @@ yt-live-chat-author-badge-renderer {
 
 其中 PSD 文件使用 Git LFS 管理。在克隆仓库时请确保安装了 Git LFS，并使用 `git lfs pull` 命令下载 PSD 文件。
 
+一些图片设计存储在[即时设计](https://js.design)。你可以通过下方的链接访问：
+
+- 直播背景：[live-stream-bg](https://js.design/f/pTCa33?p=kclPNPYPCZ&mode=design)
+
 ## 许可
 
 所有静态资源文件遵循 [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/) 许可协议
